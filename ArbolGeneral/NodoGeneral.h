@@ -16,6 +16,9 @@ public:
     void limpiarLista();
     void adicionarDesc(T& nval);
     bool eliminarDesc(T& val);
+    bool esHoja();
+    int altura();
+    void preOrden();
 };
 
 #include "NodoGeneral.hxx"

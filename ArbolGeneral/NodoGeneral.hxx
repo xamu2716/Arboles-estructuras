@@ -53,3 +53,36 @@ bool NodoGeneral<T>::eliminarDesc(T& val) {
     }
     return eliminado;
 }
+
+template< class T >
+bool NodoGeneral<T>::esHoja() {
+    return this->desc.empty();
+}
+
+template< class T >
+int NodoGeneral<T>::altura() {
+    int alt = -1;
+
+    if (this->esHoja()) {
+        alt = 0;
+    } else {
+        int alth;
+        std::list< NodoGeneral<T>* >::iterator it;
+        for (it = this->desc.begin(); it != this->desc.end(); it++) {
+            alth = (*it)->altura();
+            if (alt < alth+1)
+                alt = alth+1;
+        }
+    }
+
+    return alt;
+}
+
+template< class T >
+void NodoGeneral<T>::preOrden() {
+    std::cout << this->dato << " "; 
+    std::list< NodoGeneral<T>* >::iterator it;
+    for (it = this->desc.begin(); it != this->desc.end(); it++) {
+        (*it)->preOrden();
+    }
+}
