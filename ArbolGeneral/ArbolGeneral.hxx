@@ -1,4 +1,6 @@
 #include "ArbolGeneral.h"
+#include <queue>
+#include "NodoGeneral.h"
 
 template <class T>
 ArbolGeneral<T>::ArbolGeneral() {
@@ -133,7 +135,7 @@ int ArbolGeneral<T>::altura() {
     if (this->esVacio()) {
         return -1;
     } else {
-        return this->raiz.altura();
+        return this->raiz->altura();
     }
 }
 //preorden implementando con recursividad en nodo
@@ -143,5 +145,65 @@ void ArbolGeneral<T>::preOrden() {
         this->raiz->preOrden();
     }
 }
+
+template <class T>
+unsigned int ArbolGeneral<T>::tamano() {
+    // si esta vacio, retorno 0
+    if (this->esVacio()) {
+        return 0;
+    }
+    // para cada uno de los hijos, llamo a tamaño
+    // acumulo esos tamaños en una variable
+    unsigned int total = 0;
+    std::list< NodoGeneral<T>* >::iterator it;
+    NodoGeneral<T>* aux;
+    for (it = this->raiz->desc.begin(); it != this->raiz->desc.end(); it++) {
+        aux = *it;
+        ArbolGeneral<T> subarbol(aux);
+        total += subarbol.tamano();
+    }
+    // retorno ese valor acumulado más 1 (por la raíz)
+    return total + 1;
+}
+template <class T>
+void ArbolGeneral<T>::posOrden() {
+    // llamar a posorden sobre cada hijo
+    if (!this->esVacio()) {
+        std::list< NodoGeneral<T>* >::iterator it;
+        for (it = this->raiz->desc.begin(); it != this->raiz->desc.end(); it++) {
+            ArbolGeneral<T> subarbol(*it);
+            subarbol.posOrden();
+        }
+        // imprimo en pantalla el dato del nodo actual
+        std::cout << this->raiz->obtenerDato() << " ";
+    }
+}
+template <class T>
+void ArbolGeneral<T>::nivelOrden() {
+    // NO ES RECURRENTE (O RECURSIVO)
+    // ubicarme en la raiz
+    if (this->esVacio()) return;
+
+    // poner la raiz en una cola
+    std::queue<NodoGeneral<T>*> cola;
+    cola.push(this->raiz);
+
+    // hacer un ciclo mientras haya algo en la cola
+    while (!cola.empty()) {
+        // saco el primero disponible en la cola
+        NodoGeneral<T>* actual = cola.front();
+        cola.pop();
+
+        // imprimo su dato
+        std::cout << actual->obtenerDato() << " ";
+
+        // inserto en la cola todos sus hijos
+        typename std::list<NodoGeneral<T>*>::iterator it;
+        for (it = actual->desc.begin(); it != actual->desc.end(); ++it) {
+            cola.push(*it);
+        }
+    }
+}
+
 
 
