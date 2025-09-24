@@ -95,7 +95,7 @@ bool ArbolBinarioOrd<T>::insertar(T val){
     if(!duplicado){
         NodoBinario<T>* nuevo= new NodoBinario<T>(val);
         if(nuevo != NULL){
-            if(val > padre->obtenerDato())
+            if(val < padre->obtenerDato())
             padre->fijarHijoIzq(nuevo);
             else
             padre->fijarHijoDer(nuevo);
