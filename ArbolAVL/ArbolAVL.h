@@ -18,8 +18,8 @@ public:
     int altura(NodoAVL<T> *nodo);
     int tamano();
     int tamano(NodoAVL<T> *nodo);
-    bool insertar(T val); //se hace llamado a balanceo
-    bool eliminar(T val); //se hace llamado a balanceo
+    bool insertar(T val); // se hace llamado a balanceo
+    bool eliminar(T val); // se hace llamado a balanceo
     bool buscar(T val);
     void PreOrden();
     void PreOrden(NodoAVL<T> *nodo);
@@ -28,11 +28,11 @@ public:
     void PosOrden();
     void PosOrden(NodoAVL<T> *nodo);
     void NivelOrden();
-    void rotarIzquierda(NodoAVL<T> *nodo);
-    void rotarDerecha(NodoAVL<T> *nodo);
-    void rotarIzqDer(NodoAVL<T> *nodo);
-    void rotarDerIzq(NodoAVL<T> *nodo);
-    bool balancear(NodoAVL<T> *nodo); //Dependiendo del resultado se hace llamado a la rotacion correspondiente
+    void rotarDerecha(NodoAVL<T> *padre, NodoAVL<T> *n2);
+    void rotarIzquierda(NodoAVL<T> *padre, NodoAVL<T> *n1);
+    void rotarIzqDer(NodoAVL<T> *padre, NodoAVL<T> *n1);
+    void rotarDerIzq(NodoAVL<T> *padre, NodoAVL<T> *n1);
+    bool balancear(NodoAVL<T> *nodo); // Dependiendo del resultado se hace llamado a la rotacion correspondiente
 };
 
 #include "ArbolAVL.hxx"
